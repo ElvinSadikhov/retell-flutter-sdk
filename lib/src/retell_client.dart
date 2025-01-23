@@ -96,14 +96,14 @@ class RetellFlutterClient {
   /// Verifies that the client has been initialized.
   /// 
   /// Throws an [Exception] if the client hasn't been initialized.
-  void checkInit() {
+  void _checkInit() {
     if (!_isInitialized) {
       throw Exception('Client cannot be used before initialization');
     }
   }
 
   Future<bool> startCall(StartCallConfig config) async {
-    checkInit();
+    _checkInit();
     try {
       _connectionState.add(CallConnectionState.connecting);
 
@@ -138,14 +138,14 @@ class RetellFlutterClient {
   }
 
   void stopCall() {
-    checkInit();
+    _checkInit();
     _room?.disconnect();
     _room = null;
     _connectionState.add(CallConnectionState.disconnected);
   }
 
   void mute() {
-    checkInit();
+    _checkInit();
     if (currentConnectionState == CallConnectionState.connected) {
       _room?.localParticipant?.setMicrophoneEnabled(false);
       _isMuted.add(true);
@@ -153,7 +153,7 @@ class RetellFlutterClient {
   }
 
   void unmute() {
-    checkInit();
+    _checkInit();
     if (currentConnectionState == CallConnectionState.connected) {
       _room?.localParticipant?.setMicrophoneEnabled(true);
       _isMuted.add(false);
