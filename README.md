@@ -3,12 +3,12 @@
 This directory contains the core implementation of the Retell Flutter package.
 
 ## Directory Structure 
-
+```
 src/
 ├── models/ # Data models and state definitions
 ├── utils/ # Utility classes and helpers
 └── retell_client.dart # Main client implementation
-
+```
 
 ## Components
 
@@ -81,17 +81,22 @@ The core client implementation that handles all Retell.ai interactions:
 ### Android Permissions
 
 Add the following permissions to your `android/app/src/main/AndroidManifest.xml` file inside the `<manifest>` tag:
-    - android.permission.INTERNET
-    - android.permission.RECORD_AUDIO
-    - android.permission.MODIFY_AUDIO_SETTINGS
+```xml
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.RECORD_AUDIO"/>
+<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+```
 
 ### iOS Permissions
 
 Add the following keys to your `ios/Runner/Info.plist` file inside the `<dict>` tag:
-    - NSMicrophoneUsageDescription (Need microphone access for audio calls)
+```xml
+<key>NSMicrophoneUsageDescription</key>
+<string>Need microphone access for audio calls</string>
+```
 
 ## Example Usage
-
+```dart
 final client = RetellFlutterClient();
 // Initialize with logging
 client.initialize(enableLogging: true);
@@ -109,6 +114,7 @@ if (event is MetadataEvent) {
 });
 // Clean up
 client.dispose();
+```
 
 ## Notes
 
