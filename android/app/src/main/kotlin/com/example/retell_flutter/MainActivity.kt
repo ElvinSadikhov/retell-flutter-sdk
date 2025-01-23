@@ -1,4 +1,4 @@
-package com.example.web_rtc_test
+package com.example.retell_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 
