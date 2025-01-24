@@ -102,17 +102,25 @@ class RetellFlutterClient {
     }
   }
 
-  Future<bool> startCall(StartCallConfig config) async {
+  Future<bool> startCall(StartCallConfig config, {Timeouts timeouts = Timeouts.defaultTimeouts}) async {
     _checkInit();
     try {
       _connectionState.add(CallConnectionState.connecting);
 
-      const connectOptions = ConnectOptions(
+      final connectOptions = ConnectOptions(
         autoSubscribe: true,
-        rtcConfiguration: RTCConfiguration(
+        timeouts: timeouts,
+        rtcConfiguration: const RTCConfiguration(
           iceServers: [
             // STUN servers
             RTCIceServer(urls: ['stun:stun.l.google.com:19302']),
+            RTCIceServer(urls: ['stun:stun1.l.google.com:19302']),
+            // TURN servers
+            // RTCIceServer(
+            //   urls: ['relay1.expressturn.com:3478'],
+            //   username: 'efR7HEDF1O74VXEWLJ',
+            //   credential: 'b0zHAeWhbuNabAPx',
+            // ),
           ],
         ),
       );
