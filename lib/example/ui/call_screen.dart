@@ -25,6 +25,7 @@ class _CallScreenState extends State<CallScreen> {
   void initState() {
     super.initState();
     _setupEventListeners();
+    _client.initialize(enableLogging: true);
   }
 
   @override

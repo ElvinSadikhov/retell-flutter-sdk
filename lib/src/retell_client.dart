@@ -111,6 +111,7 @@ class RetellFlutterClient {
         autoSubscribe: true,
         rtcConfiguration: RTCConfiguration(
           iceServers: [
+            // STUN servers
             RTCIceServer(urls: ['stun:stun.l.google.com:19302']),
           ],
         ),
@@ -132,14 +133,16 @@ class RetellFlutterClient {
       return true;
     } catch (err) {
       RetellLogger.instance.e('Error starting call', err);
-      _connectionState.add(CallConnectionState.disconnected);
+      stopCall();
       return false;
     }
   }
 
   void stopCall() {
     _checkInit();
-    _room?.disconnect();
+    try {
+      _room?.disconnect();
+    } catch (_) { }
     _room = null;
     _connectionState.add(CallConnectionState.disconnected);
   }
@@ -163,8 +166,9 @@ class RetellFlutterClient {
   void _handleRoomEvents() {
     _room?.addListener(() {
       final tryingToDisconnect = _room?.connectionState == ConnectionState.disconnected;
+      final isConnecting = currentConnectionState == CallConnectionState.connecting;
       final isConnected = currentConnectionState == CallConnectionState.connected;
-      if (tryingToDisconnect && isConnected) {
+      if (tryingToDisconnect && (isConnecting || isConnected)) {
         stopCall();
       }
     });
