@@ -107,23 +107,23 @@ class RetellFlutterClient {
     try {
       _connectionState.add(CallConnectionState.connecting);
 
-      final connectOptions = ConnectOptions(
-        autoSubscribe: true,
-        timeouts: timeouts,
-        rtcConfiguration: const RTCConfiguration(
-          iceServers: [
-            // STUN servers
-            RTCIceServer(urls: ['stun:stun.l.google.com:19302']),
-            RTCIceServer(urls: ['stun:stun1.l.google.com:19302']),
-            // TURN servers
-            // RTCIceServer(
-            //   urls: ['relay1.expressturn.com:3478'],
-            //   username: 'efR7HEDF1O74VXEWLJ',
-            //   credential: 'b0zHAeWhbuNabAPx',
-            // ),
-          ],
-        ),
-      );
+      // final connectOptions = ConnectOptions(
+      //   autoSubscribe: true,
+      //   timeouts: timeouts,
+      //   rtcConfiguration: const RTCConfiguration(
+      //     iceServers: [
+      //       // STUN servers
+      //       RTCIceServer(urls: ['stun:stun.l.google.com:19302']),
+      //       RTCIceServer(urls: ['stun:stun1.l.google.com:19302']),
+      //       // TURN servers
+      //       // RTCIceServer(
+      //       //   urls: ['relay1.expressturn.com:3478'],
+      //       //   username: 'efR7HEDF1O74VXEWLJ',
+      //       //   credential: 'b0zHAeWhbuNabAPx',
+      //       // ),
+      //     ],
+      //   ),
+      // );
 
       _room = Room();
       _handleRoomEvents();
@@ -133,7 +133,7 @@ class RetellFlutterClient {
       await _room?.connect(
         hostUrl,
         config.accessToken,
-        connectOptions: connectOptions,
+        // connectOptions: connectOptions,
       );
       await _room?.localParticipant?.setMicrophoneEnabled(true);
 
