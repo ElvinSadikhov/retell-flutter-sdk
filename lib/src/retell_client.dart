@@ -125,7 +125,13 @@ class RetellFlutterClient {
       //   ),
       // );
 
-      _room = Room();
+      _room = Room(
+        roomOptions: const RoomOptions(
+          defaultAudioOutputOptions: AudioOutputOptions(
+            speakerOn: true,
+          )
+        )
+      );
       _handleRoomEvents();
       _handleAudioEvents(config);
       _handleDataEvents();
